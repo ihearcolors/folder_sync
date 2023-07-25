@@ -29,24 +29,24 @@ logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%d/%m/%Y %I:%M:%S
 #  Defining functions for event handling and actions to take
 def on_created(event):
     print(f"{timestamp} [CREATE] \"{event.src_path}\"")
-    logging.info(f'[SOURCE] [CREATED] \"{event.src_path}\"')
+    logging.info(f'[SOURCE]  [CREATED]  \"{event.src_path}\"')
     # dst = '\\'.join(str(event.src_path).replace(path, dest).split('\\')[:-1])
     dst = str(event.src_path.replace(source, dest))
     try:
         if 'win' in sys.platform:
             if os.path.isfile(event.src_path):
                 os.system(f"copy \"{event.src_path}\" \"{dst}\"")
-                logging.info(f'[REPLICA] [CREATED] \"{dst}\"')
+                logging.info(f'[REPLICA] [CREATED]  \"{dst}\"')
             elif os.path.isdir(event.src_path):
                 os.system(f"mkdir \"{str(event.src_path).replace(source, dest)}\"")
-                logging.info(f'[REPLICA] [CREATED] \"{dst}\"')
+                logging.info(f'[REPLICA] [CREATED]  \"{dst}\"')
         else:
             if os.path.isfile(event.src_path):
                 os.system(f"cp \"{event.src_path}\" \"{dst}\"")
-                logging.info(f'[REPLICA] [CREATED] \"{dst}\"')
+                logging.info(f'[REPLICA] [CREATED]  \"{dst}\"')
             elif os.path.isdir(event.src_path):
                 os.system(f"mkdir -p \"{str(event.src_path).replace(source, dest)}\"")
-                logging.info(f'[REPLICA] [CREATED] \"{dst}\"')
+                logging.info(f'[REPLICA] [CREATED]  \"{dst}\"')
     except Exception as e:
         print("Error ", e)
         logging.error(f'[ERROR] {e}')
@@ -54,7 +54,7 @@ def on_created(event):
 
 def on_deleted(event):
     print(f"{timestamp} [DELETE] \"{event.src_path}\"")
-    logging.info(f'[SOURCE] [DELETED] \"{event.src_path}\"')
+    logging.info(f'[SOURCE]  [DELETED] \"{event.src_path}\"')
     dst = str(event.src_path.replace(source, dest))
     try:
         if 'win' in sys.platform:
@@ -79,7 +79,7 @@ def on_deleted(event):
 
 def on_modified(event):
     print(f"{timestamp} [MODIFY] \"{event.src_path}\"")
-    logging.info(f'[SOURCE] [MODIFIED] \"{event.src_path}\"')
+    logging.info(f'[SOURCE]  [MODIFIED] \"{event.src_path}\"')
     dst = str(event.src_path.replace(source, dest))
     try:
         if 'win' in sys.platform:
@@ -103,20 +103,20 @@ def on_modified(event):
 
 def on_moved(event):
     print(f"[{timestamp}] [MOVE] \"{event.src_path} -> {event.dest_path}\"")
-    logging.info(f'[SOURCE] [MOVED] \"{event.src_path} -> {event.dest_path}\"')
+    logging.info(f'[SOURCE]  [MOVED]    \"{event.src_path} -> {event.dest_path}\"')
     dst = str(event.src_path.replace(source, dest))
     new_dst = str(event.dest_path.replace(source, dest))
     try:
         if 'win' in sys.platform:
             if os.path.isdir(dst):
                 os.system(f"move \"{dst}\" \"{new_dst}\"")
-                logging.info(f'[REPLICA] [MOVED] \"{dst}\" -> \"{new_dst}\"')
+                logging.info(f'[REPLICA] [MOVED]    \"{dst}\" -> \"{new_dst}\"')
             elif os.path.isfile(dst):
                 os.system(f"move \"{dst}\" \"{new_dst}\"")
-                logging.info(f'[REPLICA] [MOVED] \"{dst}\" -> \"{new_dst}\"')
+                logging.info(f'[REPLICA] [MOVED]    \"{dst}\" -> \"{new_dst}\"')
         else:
             os.system(f"mv \"{dst}\" \"{new_dst}\"")
-            logging.info(f'[REPLICA] [MOVED] \"{dst}\" -> \"{new_dst}\"')
+            logging.info(f'[REPLICA] [MOVED]    \"{dst}\" -> \"{new_dst}\"')
     except Exception as e:
         print("Error ", e)
         logging.error(f'[ERROR] {e}')
