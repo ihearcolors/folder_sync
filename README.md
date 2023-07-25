@@ -2,6 +2,8 @@
 
 A program in Python that synchronizes two folders that uses WatchDog library.
 
+USE FULL PATH FOR BOTH SOURCE AND DESTINATION!
+
 Command-line arguments:
 
   -h, --help					Show this help message and exit
