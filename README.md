@@ -1,6 +1,6 @@
 # folder_sync
 
-A program in Python that synchronizes two folders that uses Python's WatchDog library.
+A program in Python that synchronizes two folders that uses WatchDog library.
 
 Command-line arguments:
 
